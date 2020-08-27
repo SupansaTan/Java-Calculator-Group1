@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Calculator {
+    public static float value_1, value_2, result;
+    public static int operation;
 
     public static void main(String[] args) {
         showGUI();
@@ -29,6 +31,23 @@ public class Calculator {
     
         // for display on screen
         frame.setVisible(true);
+
+    }
+
+    static void Calculate() {
+
+        if (operation == 1) {
+            result = value_1 + value_2;
+        }
+        else if (operation == 2) {
+            result = value_1 - value_2;
+        }
+        else if (operation == 3) {
+            result = value_1 * value_2;
+        }
+        else if (operation == 4) {
+            result = value_1 / value_2;
+        }
 
     }
 
