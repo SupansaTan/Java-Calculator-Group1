@@ -105,8 +105,6 @@ public class Calculator {
 
     //method for action when pressed button 
     static void selectionButtonPressed(String action) {
-        String oldExp = displayNumber.getText();
-
         if (action.equals("+")) {
             setOperator(action);
             displayNumber.setText("" + operator);
@@ -133,6 +131,9 @@ public class Calculator {
             num1 = Calculate(num1, operator, num2).toString();
             num2 = ""; operator = 0;
             displayNumber.setText(num1);
+        }
+        else if(action.equals("<--")){
+            displayNumber.setText(pressedBackspaceBtn());
         }
     }
 
@@ -165,15 +166,34 @@ public class Calculator {
             return num1;
         } 
         else if (operator == 0){
-            // when operator is undefine value, it appears that num1 is incomplete define value
+            // when num1 is incomplete define value
             num1 += input;
             return num1;  
         } 
         else {
-            // when operator is defined, it appears that we will to define value of num2 
+            // when want to define value of num2 
             num2 += input;
             return num2;
         }  
+    }
+
+    // method for when pressed backspace button
+    static String pressedBackspaceBtn(){
+        if (operator == 0){
+            // when want to remove the last of 'num1'
+            num1 = num1.substring(0,num1.length()-1);
+            return num1;
+        }
+        else if (num2 == ""){
+            // when want to change operator 
+            operator = 0;
+            return num1;
+        } 
+        else {
+            // when want to remove the last of 'num2'
+            num2 = num2.substring(0,num2.length()-1);
+            return num2;
+        }
     }
 
     // method for calculate 
