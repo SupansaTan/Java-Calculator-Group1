@@ -3,20 +3,22 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Calculator {
-    static float value1, value2, result;
+    static String value1, value2;
     static char operator;
+    static String numberInput = "";
+
     static JButton[] buttons;
+    static String[] TextButton;
     static JTextField displayNumber;
     static JPanel centerPanel, innerButtonPanel;
     static GridBagConstraints Upper, Center, Below;
-    static String[] TextButton;
     
-    static String numberInput = "";
     public static void main(String[] args) {
         showGUI();
 
     }
 
+    // method for create and show GUI of calculator
     static void showGUI() {
         // set Colors
         Color darkBlue = new Color(15,76,129);
@@ -83,9 +85,12 @@ public class Calculator {
                 buttons[i].setBackground(white);
             }
             buttons[i].setBorder(null); // No border
-            buttons[i].setActionCommand(TextButton[i]); 
-            buttons[i].addActionListener(new ActionListener() { 
+            buttons[i].setActionCommand(TextButton[i]);  // define action command for the button
+            buttons[i].addActionListener(new ActionListener() {  // set action listeners for buttons
+
+                // set action when click pressed button
                 public void actionPerformed(ActionEvent e) { 
+
                     String action = e.getActionCommand();
                     selectionButtonPressed(action);
                 } 
@@ -98,24 +103,24 @@ public class Calculator {
 
     }
 
+    //method for action when pressed button 
     static void selectionButtonPressed(String action) {
         String oldExp = displayNumber.getText();
 
         if (action.equals("+")) {
-            System.out.println("ytes + ");
-            operator = '+';
+            setOperator(action);
             displayNumber.setText("+");
         }
         else if(action.equals("-")){
-            operator = '-';
+            setOperator(action);
             displayNumber.setText("-");
         }
         else if(action.equals("*")){
-            operator = '*';
+            setOperator(action);
             displayNumber.setText("*");
         }
         else if(action.equals("/")){
-            operator = '/';
+            setOperator(action);
             displayNumber.setText("/");
         }
         else if("0123456789".contains(action))
@@ -125,19 +130,43 @@ public class Calculator {
         }
     }
 
-    static Float Calculate() {
+    // method for set value of operator
+    static void setOperator(String input_op){
+    
+        if (input_op == ""){
+            operator = input_op.charAt(0);
+        } 
+        else {
 
-        if (operator == '+') {
-            result = value1 + value2;
+            if (input_op == ""){
+                operator = input_op.charAt(0);
+            } 
+            else {
+                value1 = Calculate(value1,input_op.charAt(0),value2).toString();
+                value2 = "";
+                operator = input_op.charAt(0);
+            }
         }
-        else if (operator == '-') {
-            result = value1 - value2;
+    }
+
+    // method for calculate 
+    static Float Calculate(String num1, char op, String num2) {
+
+        float num1_float = Float.parseFloat(num1);
+        float num2_float = Float.parseFloat(num2);
+        Float result = 1.0f;
+
+        if (op == '+') {
+            result = num1_float + num2_float;
         }
-        else if (operator == '*') {
-            result = value1 * value2;
+        else if (op == '-') {
+            result = num1_float - num2_float;
         }
-        else if (operator == '/') {
-            result = value1 / value2;
+        else if (op == '*') {
+            result = num1_float * num2_float;
+        }
+        else if (op == '/') {
+            result = num1_float / num2_float;
         }
         return result;
     }
