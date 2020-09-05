@@ -128,7 +128,7 @@ public class Calculator {
         }
         else if(action.equals("=")){
             numberInput = "";
-            num1 = Calculate(num1, operator, num2).toString();
+            num1 = calculate(num1, operator, num2).toString();
             num2 = ""; operator = 0;
             displayNumber.setText(num1);
         }
@@ -142,22 +142,33 @@ public class Calculator {
         else if(action.equals(".")){
             displayNumber.setText(pressedDotBtn());
         }
+        else if(action.equals("+/-")){
+            displayNumber.setText(pressedSwitchSignBtn());
+        }
     }
     
     // method for set value of operator
     static char setOperator(String input_op){
         if (operator == 0){  
-            // when operator is null
-            operator = input_op.charAt(0);
+
+            if (num1 == ""){
+                // when want to add sign at num1
+                num1 = input_op;
+            }
+            else{
+                // when operator is null
+                operator = input_op.charAt(0);
+            }
         } 
         else {
+            
             if (num2 == ""){
                 // if num2 is yet to define value & for case when pressed operator again
                 operator = input_op.charAt(0);
             } 
             else {
                 // if value of both num1 and num2 is defined, will calculate its and define result to num1
-                num1 = Calculate(num1, operator, num2).toString();
+                num1 = calculate(num1, operator, num2).toString();
                 num2 = "";
                 operator = input_op.charAt(0);
             }
@@ -211,6 +222,37 @@ public class Calculator {
         }
     }
 
+    // method for when pressed +/- button
+    static String pressedSwitchSignBtn(){
+        boolean num1_getStr = num1.contains("-");
+        boolean num2_getStr = num2.contains("-");
+
+        if (operator == 0){
+            // when want to switch sign at num1
+            if (num1_getStr == false){
+                num1 = "-" + num1;
+            }
+            else{
+                num1 = num1.substring(1, num1.length());
+            }
+            return num1;
+        } 
+        else if (!num2.equals("")){
+            // when want to switch sign at num2
+            if (num2_getStr == false){
+                num2 = "-" + num2;
+            }
+            else{
+                num2 = num2.substring(1, num2.length());
+            }
+            return num2;
+        }
+        else { 
+            // when add dot at the last of operator
+            return "" + operator;
+        }
+    }
+
     // method for when pressed backspace button
     static String pressedBackspaceBtn(){
         if (operator == 0){
@@ -231,7 +273,7 @@ public class Calculator {
     }
 
     // method for calculate 
-    static Float Calculate(String num1, char op, String num2) {
+    static Float calculate(String num1, char op, String num2) {
         float num1_float = Float.parseFloat(num1);
         float num2_float = Float.parseFloat(num2);
         Float result = 1.0f;
