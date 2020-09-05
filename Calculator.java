@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Math; 
+import java.awt.Font; 
 
 public class Calculator {
     static String num1 = "", num2 = "";
@@ -40,10 +41,12 @@ public class Calculator {
         Upper.fill = GridBagConstraints.VERTICAL;
         Upper.gridx = 15;
         Upper.gridy = 15;
-        Upper.ipady = 90;
+        Upper.ipady = 60;
         Upper.ipadx = 455;
     
         displayNumber = new JTextField(); // rect for display number
+        Font sizeFont = new Font(displayNumber.getFont().getName(),displayNumber.getFont().getStyle(),30);  
+        displayNumber.setFont(sizeFont);
         displayNumber.setBorder(null);
         frame.add(displayNumber, Upper);
         
@@ -128,7 +131,6 @@ public class Calculator {
             displayNumber.setText(numberInput);
         }
         else if(action.equals("=")){
-            numberInput = "";
             num1 = calculate(num1, operator, num2).toString();
             num2 = ""; operator = 0;
             displayNumber.setText(num1);
