@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Calculator {
-    static String value1, value2;
+    static String num1 = "", num2 = "";
     static char operator;
     static String numberInput = "";
 
@@ -109,49 +109,75 @@ public class Calculator {
 
         if (action.equals("+")) {
             setOperator(action);
-            displayNumber.setText("+");
+            displayNumber.setText("" + operator);
         }
         else if(action.equals("-")){
             setOperator(action);
-            displayNumber.setText("-");
+            displayNumber.setText("" + operator);
         }
         else if(action.equals("*")){
             setOperator(action);
-            displayNumber.setText("*");
+            displayNumber.setText("" + operator);
         }
         else if(action.equals("/")){
             setOperator(action);
-            displayNumber.setText("/");
+            displayNumber.setText("" + operator);
         }
         else if("0123456789".contains(action))
         {
-            numberInput += action;
+            numberInput = setNumber(action);
             displayNumber.setText(numberInput);
+        }
+        else if(action.equals("=")){
+            numberInput = "";
+            num1 = Calculate(num1, operator, num2).toString();
+            num2 = ""; operator = 0;
+            displayNumber.setText(num1);
         }
     }
 
     // method for set value of operator
-    static void setOperator(String input_op){
-    
-        if (input_op == ""){
+    static char setOperator(String input_op){
+        if (operator == 0){  
+            // when operator is null
             operator = input_op.charAt(0);
         } 
         else {
-
-            if (input_op == ""){
+            if (num2 == ""){
+                // if num2 is yet to define value & for case when pressed operator again
                 operator = input_op.charAt(0);
             } 
             else {
-                value1 = Calculate(value1,input_op.charAt(0),value2).toString();
-                value2 = "";
+                // if value of both num1 and num2 is defined, will calculate its and define result to num1
+                num1 = Calculate(num1, operator, num2).toString();
+                num2 = "";
                 operator = input_op.charAt(0);
             }
         }
+        return operator;
+    }
+
+    // method for set value of num1, num2 when pressed number button
+    static String setNumber(String input){
+        if (num1 == ""){
+            // when num1 is undefine value
+            num1 = input;
+            return num1;
+        } 
+        else if (operator == 0){
+            // when operator is undefine value, it appears that num1 is incomplete define value
+            num1 += input;
+            return num1;  
+        } 
+        else {
+            // when operator is defined, it appears that we will to define value of num2 
+            num2 += input;
+            return num2;
+        }  
     }
 
     // method for calculate 
     static Float Calculate(String num1, char op, String num2) {
-
         float num1_float = Float.parseFloat(num1);
         float num2_float = Float.parseFloat(num2);
         Float result = 1.0f;
