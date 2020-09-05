@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.Math; 
 
 public class Calculator {
     static String num1 = "", num2 = "";
@@ -145,6 +146,9 @@ public class Calculator {
         else if(action.equals("+/-")){
             displayNumber.setText(pressedSwitchSignBtn());
         }
+        else if(action.equals("x^2")){
+            displayNumber.setText(pressedPowBtn());
+        }
     }
     
     // method for set value of operator
@@ -161,7 +165,7 @@ public class Calculator {
             }
         } 
         else {
-            
+
             if (num2 == ""){
                 // if num2 is yet to define value & for case when pressed operator again
                 operator = input_op.charAt(0);
@@ -268,6 +272,33 @@ public class Calculator {
         else {
             // when want to remove the last of 'num2'
             num2 = num2.substring(0,num2.length()-1);
+            return num2;
+        }
+    }
+
+    // method for when pressed power two button
+    static String pressedPowBtn(){
+        double result;
+
+        if (operator == 0){
+            // when want to calculate num1 to power 2
+            double num1_double = Double.parseDouble(num1);
+            result = Math.pow(num1_double,2);
+            num1 = "" + result;
+            return num1;
+        } 
+        else if (!num2.equals("")){
+            // when want to calculate num2 to power 2
+            double num2_double = Double.parseDouble(num2);
+            result = Math.pow(num2_double,2);
+            num2 = "" + result;
+            return num2;
+        }
+        else { 
+            // when want to define value of num2 as value of num1 to power 2
+            double num1_double = Double.parseDouble(num1);
+            result = Math.pow(num1_double,2);
+            num2 = "" + result;
             return num2;
         }
     }
