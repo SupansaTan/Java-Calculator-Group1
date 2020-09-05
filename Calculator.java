@@ -135,8 +135,15 @@ public class Calculator {
         else if(action.equals("<--")){
             displayNumber.setText(pressedBackspaceBtn());
         }
+        else if(action.equals("C")){
+            num1 = ""; num2 = ""; operator = 0;
+            displayNumber.setText("");
+        }
+        else if(action.equals(".")){
+            displayNumber.setText(pressedDotBtn());
+        }
     }
-
+    
     // method for set value of operator
     static char setOperator(String input_op){
         if (operator == 0){  
@@ -175,6 +182,33 @@ public class Calculator {
             num2 += input;
             return num2;
         }  
+    }
+
+    // method for when pressed dot button
+    static String pressedDotBtn(){
+        boolean num1_getStr = num1.contains(".");
+        boolean num2_getStr = num2.contains(".");
+
+        if (operator == 0){
+            // when want to add dot at num1
+            if (num1_getStr == false){
+                num1 += ".";
+                return num1;
+            }
+            return num1;
+        } 
+        else if (!num2.equals("")){
+            // when want to add dot at num2
+            if (num2_getStr == false){
+                num2 += ".";
+                return num2;
+            }
+            return num2;
+        }
+        else { 
+            // when add dot at the last of operator
+            return "" + operator;
+        }
     }
 
     // method for when pressed backspace button
