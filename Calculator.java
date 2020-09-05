@@ -131,9 +131,7 @@ public class Calculator {
             displayNumber.setText(numberInput);
         }
         else if(action.equals("=")){
-            num1 = calculate(num1, operator, num2).toString();
-            num2 = ""; operator = 0;
-            displayNumber.setText(num1);
+            displayNumber.setText(pressedTotalBtn());
         }
         else if(action.equals("<--")){
             displayNumber.setText(pressedBackspaceBtn());
@@ -256,6 +254,24 @@ public class Calculator {
         else { 
             // when add dot at the last of operator
             return "" + operator;
+        }
+    }
+
+    // method for when pressed total button
+    static String pressedTotalBtn(){
+        if (operator == 0){
+            // when operator undefine value
+            return num1;
+        }
+        else if (num2 == ""){
+            // when operator is defined and num2 undefine value
+            return "" + operator;
+        }
+        else{
+            // when num1, num2 and operator were defined value
+            num1 = calculate(num1, operator, num2).toString();
+            num2 = ""; operator = 0;
+            return num1;
         }
     }
 
