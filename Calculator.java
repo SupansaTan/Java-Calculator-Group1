@@ -45,8 +45,8 @@ public class Calculator {
         Upper.ipadx = 455;
     
         displayNumber = new JTextField(); // rect for display number
-        Font sizeFont = new Font(displayNumber.getFont().getName(),displayNumber.getFont().getStyle(),30);  
-        displayNumber.setFont(sizeFont);
+        Font displayNumFont = new Font(displayNumber.getFont().getName(),displayNumber.getFont().getStyle(),30);
+        displayNumber.setFont(displayNumFont);
         displayNumber.setBorder(null);
         frame.add(displayNumber, Upper);
         
@@ -65,8 +65,8 @@ public class Calculator {
         Below = new GridBagConstraints();
         Below.fill = GridBagConstraints.VERTICAL;
         Below.gridx = 15;
-        Below.ipadx = 350;
-        Below.ipady = 200;
+        Below.ipadx = 315;
+        Below.ipady = 160;
  
         // set panel of buttons
         innerButtonPanel = new JPanel();
@@ -74,11 +74,14 @@ public class Calculator {
         innerButtonPanel.setBackground(darkBlue);
         frame.add(innerButtonPanel,Below);
         
+        Font buttonFont = new Font(displayNumber.getFont().getName(),displayNumber.getFont().getStyle(),20);  //set font of button
         String[] TextButton = {"C","/","x^2","<--","9","8","7","*","6","5","4","-","3","2","1","+","+/-","0",".","="}; // text on buttons
         buttons = new JButton[20]; // create buttons 
         
         for (int i=0; i < TextButton.length; i++){
-            buttons[i] = new JButton(TextButton[i]);  
+            buttons[i] = new JButton(TextButton[i]);
+            buttons[i].setFont(buttonFont);  
+
             if (TextButton[i] == "-" || TextButton[i] == "*" || TextButton[i] == "/" || TextButton[i] == "C" || TextButton[i] == "x^2" || TextButton[i] == "<--" || TextButton[i] == "+"){
                 buttons[i].setBackground(lightGrey);
             }
@@ -277,9 +280,18 @@ public class Calculator {
 
     // method for when pressed backspace button
     static String pressedBackspaceBtn(){
-        if (operator == 0){
+        if (num1 == ""){
+            // when num1 is undefine value
+            return "";
+        }
+        else if (operator == 0){
             // when want to remove the last of 'num1'
-            num1 = num1.substring(0,num1.length()-1);
+            if (num1.length() == 1){
+                num1 = "";
+            }
+            else{
+                num1 = num1.substring(0,num1.length()-1);
+            }
             return num1;
         }
         else if (num2 == ""){
@@ -342,5 +354,4 @@ public class Calculator {
         return result;
     }
 
-    
 }
