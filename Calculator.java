@@ -7,7 +7,6 @@ import java.awt.Font;
 public class Calculator {
     static String num1 = "", num2 = "";
     static char operator;
-    static String numberInput = "";
 
     static JButton[] buttons;
     static String[] TextButton;
@@ -130,8 +129,7 @@ public class Calculator {
         }
         else if("0123456789".contains(action))
         {
-            numberInput = setNumber(action);
-            displayNumber.setText(numberInput);
+            displayNumber.setText(setNumber(action));
         }
         else if(action.equals("=")){
             displayNumber.setText(pressedTotalBtn());
